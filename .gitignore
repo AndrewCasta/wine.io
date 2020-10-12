@@ -1,5 +1,7 @@
 env/
 
+flask_session/
+
 *.pyc
 __pycache__/
 
@@ -15,7 +17,6 @@ build/
 
 dbtest.py
 
-flask_session/
 
 # filestore
 images-upload/
