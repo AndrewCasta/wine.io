@@ -1,8 +1,28 @@
 console.log("connected");
 
-// console.log("{{ name|tojson }}"); Data needs to come from an API not via template
+/* =================================
+// Autocomplete & wine_id checker //
+================================= */
 
-// Form interface
+// get the current values from DB
+let wines;
+let brands;
+$.get("/wines", data => {
+  // array of wine objects
+  wines = data.wines;
+  // array of brand names
+  brands = data.wines.map(x => x.brand);
+});
+
+// hacky way of getting the data into console
+document.addEventListener("click", () => {
+  console.log(wines);
+  console.log(brands);
+});
+
+/* =================
+// Form interface //
+==================*/
 
 // star rating click & input
 const stars = document.querySelectorAll(".star-scale span");
@@ -24,17 +44,6 @@ stars.forEach(star => {
     });
   });
 });
-
-// Display rating input from slider
-/*
-// Initial attempt, adds rating from slider to span
-const rating = document.querySelector("#rating");
-const ratingNumber = document.querySelector("#rating-number");
-
-rating.addEventListener("change", e => {
-  ratingNumber.textContent = e.currentTarget.value;
-});
-*/
 
 // Render preview image for loaded image
 
