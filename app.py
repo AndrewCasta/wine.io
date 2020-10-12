@@ -8,7 +8,7 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
-# Configure CS50 Library to use SQLite database
+# set DB. Using SQL library from CS50.
 db = SQL("sqlite:///wineio.db")
 
 # File upload config
@@ -77,14 +77,10 @@ def add():
             file.save(image)
         # https://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
 
-        print(brand, variety, year, rating, wine_id, image, review, drink_again)
-
         # update all form data in db
-
         # if wine does exist, first create new row for wine, return wine_id
         if not wine_id:
             wine_id = db.execute("INSERT INTO wines (brand, variety, year) VALUES (?, ?, ?)", brand, variety, year)
-
         # insert review into DB
         db.execute("INSERT INTO reviews (user_id, wine_id, rating, image, review, drink_again) VALUES (?, ?, ?, ?, ?, ?)", session["user_id"], wine_id, rating, image, review, drink_again)
 
@@ -95,6 +91,13 @@ def add():
 #############
 
 # wines lookup (return wines to frontend for lookup & return to DB via add route)
+@app.route('/wines')
+def get_wines():
+    data = {}
+    data["wines"] = db.execute("SELECT * FROM wines")
+    return data
+
+# review lookup (for editing)
 
 #################
 # Authentication
