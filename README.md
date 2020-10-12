@@ -13,6 +13,7 @@ Current project: https://trello.com/b/8E4GEEEp/wineio
 Deployed preview: TODO
 
 Features:
+----------
 
 Wine database is a user-shared generated db.
 * Instead of pre-populating a list of brand, variety, year etc for the interface the users will submit these to the DB and create a new row in the wine DB if it doesn't exist.
