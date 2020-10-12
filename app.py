@@ -29,8 +29,22 @@ Session(app)
 
 
 # TODO
+# validate /add form data
 
 
+#################
+# Authentication
+#################
+
+# https://flask.palletsprojects.com/en/1.1.x/patterns/viewdecorators/
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if g.user is None:
+            return redirect(url_for('login', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
 
 #################
 # Frontend routes
@@ -64,8 +78,7 @@ def add():
         wine_id = request.form.get("wine_id")
         # needs to implement autocomplete, then check for wine_id if a match was found 
 
-        # validate all form data
-        # TODO
+        # TODO validate all form data
         
         # image
         # if image file provided, store in server folder & set image as location in db
@@ -99,17 +112,4 @@ def get_wines():
 
 # review lookup (for editing)
 
-#################
-# Authentication
-#################
-
-# https://flask.palletsprojects.com/en/1.1.x/patterns/viewdecorators/
-
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if g.user is None:
-            return redirect(url_for('login', next=request.url))
-        return f(*args, **kwargs)
-    return decorated_function
 
