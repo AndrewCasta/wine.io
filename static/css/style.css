@@ -1,0 +1,74 @@
+/* 
+=============
+Variables
+=============
+ */
+
+/* 
+=============
+Globals
+=============
+ */
+
+a {
+  text-decoration: none;
+}
+
+img {
+  width: 100%;
+  display: block;
+}
+
+/* 
+=============
+Add
+=============
+ */
+
+.review-container {
+  width: 90%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+form {
+  display: grid;
+}
+
+.exit-btn {
+  padding: 0.5rem;
+  justify-self: end;
+  font-size: 2rem;
+}
+
+/* Image updload */
+.img-upload {
+  display: flex;
+  justify-content: center;
+}
+/* hide the input for image */
+.img-upload > input {
+  display: none;
+}
+/* image icon spans */
+.image-label {
+  font-size: 5rem;
+}
+.close-img {
+  font-size: 3rem;
+}
+.close-img.hidden {
+  display: none;
+}
+
+/* star rating */
+#rating {
+  display: none;
+}
+.star-scale {
+  font-size: 2rem;
+  text-align: center;
+}
+.checked {
+  color: orange;
+}
