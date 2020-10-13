@@ -4,6 +4,12 @@ console.log("connected");
 // Autocomplete & wine_id checker //
 ================================= */
 
+const datalistBrands = document.querySelector("#datalist-brands");
+const brandInput = document.querySelector("#brand");
+const datalistVariety = document.querySelector("#datalist-varieties");
+const varietyInput = document.querySelector("#variety");
+const datalistYear = document.querySelector("#datalist-year");
+
 // get the current values from DB
 let wines;
 let brands;
@@ -12,6 +18,9 @@ $.get("/wines", data => {
   wines = data.wines;
   // array of brand names
   brands = data.wines.map(x => x.brand);
+
+  // initial load to brands (when data arrives)
+  loadDropdown(brands, datalistBrands);
 });
 
 // hacky way of getting the data into console
@@ -19,6 +28,22 @@ document.addEventListener("click", () => {
   console.log(wines);
   console.log(brands);
 });
+
+// if brands not null, populate varieties
+// create varieties sub array
+
+// if varieties not null, populate year
+// create year sub array
+
+// (helper function)
+// load data into dropdown list. args = arr, dom datalist. e.g. brand, datalistBrands
+function loadDropdown(arr, datalist) {
+  let domlist = arr.map(x => {
+    return `<option value="${x}">${x}</option>`;
+  });
+  domlist = domlist.join("");
+  datalist.innerHTML = domlist;
+}
 
 /* =================
 // Form interface //
