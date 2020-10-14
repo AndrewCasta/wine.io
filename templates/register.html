@@ -4,19 +4,32 @@
 <!-- prettier-ignore -->
 {% block body %}
 <main class="text-center main-register">
-  <form action="" class="form-register">
+  <form action="/register" method="POST" class="form-register">
     <h1 class="h3 mb-3 font-weight-normal">Please register</h1>
     <div class="form-group">
-      <label for="exampleInputEmail1">Choose a username</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Username" />
+      <label for="username">Choose a username</label>
+      <!-- username -->
+      <input type="text" name="username" class="form-control" id="username" placeholder="Username" />
       <small id="emailHelp" class="form-text text-muted"></small>
     </div>
     <div class="form-group">
-      <label for="exampleInputPassword1">Set a password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter your password" />
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Re-enter your password" />
+      <label for="password">Set a password</label>
+      <!-- password -->
+      <input type="password" name="password" class="form-control" id="password" placeholder="Enter your password" />
+      <!-- password-check -->
+      <input
+        type="password"
+        name="password-check"
+        class="form-control"
+        id="exampleInputPassword1"
+        placeholder="Re-enter your password"
+      />
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+    <!-- error message -->
+    {% if error %}
+    <p class="error-message">{{ error }}</p>
+    {% endif %}
   </form>
 </main>
 {% endblock body%}
