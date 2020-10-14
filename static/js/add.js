@@ -4,45 +4,96 @@ console.log("connected");
 // Autocomplete & wine_id checker //
 ================================= */
 
+//--------------
+// DOM variables
+//--------------
+
 const datalistBrands = document.querySelector("#datalist-brands");
 const brandInput = document.querySelector("#brand");
 const datalistVariety = document.querySelector("#datalist-varieties");
 const varietyInput = document.querySelector("#variety");
-const datalistYear = document.querySelector("#datalist-year");
+const datalistYear = document.querySelector("#datalist-years");
+const yearInput = document.querySelector("#year");
+const wineId = document.querySelector("#wine_id");
 
-// get the current values from DB
+//---------
+// on load
+//---------
+
+// get the wines values from DB
 let wines;
-let brands;
 $.get("/wines", data => {
   // array of wine objects
   wines = data.wines;
   // array of brand names
-  brands = data.wines.map(x => x.brand);
+  let brands = new Set(data.wines.map(wine => wine.brand));
+  brands = [...brands];
 
   // initial load to brands (when data arrives)
   loadDropdown(brands, datalistBrands);
 });
 
-// hacky way of getting the data into console
-document.addEventListener("click", () => {
-  console.log(wines);
-  console.log(brands);
-});
+//------------
+// page events
+//------------
 
 // if brands not null, populate varieties
-// create varieties sub array
+brandInput.addEventListener("keyup", () => {
+  // create varieties unique sub array
+  let varieties = wines.reduce((arr, wine) => {
+    if (brandInput.value == wine.brand && !arr.includes(wine.variety)) {
+      arr.push(wine.variety);
+    }
+    return arr;
+  }, []);
+  // call helper functions
+  wineIdUpdate();
+  loadDropdown(varieties, datalistVariety);
+});
 
-// if varieties not null, populate year
-// create year sub array
+// if varieties not null, populate year and store wine_id
+varietyInput.addEventListener("keyup", () => {
+  // create year sub array
+  const years = wines.reduce((arr, wine) => {
+    if (varietyInput.value == wine.variety && brandInput.value == wine.brand) {
+      arr.push(wine.year);
+    }
+    return arr;
+  }, []);
+  // call helper functions
+  wineIdUpdate();
+  loadDropdown(years, datalistYear);
+});
 
-// (helper function)
+// check for wine_id if year is inputted
+yearInput.addEventListener("keyup", () => {
+  wineIdUpdate();
+});
+
+//-----------------
+// helper functions
+//-----------------
+
 // load data into dropdown list. args = arr, dom datalist. e.g. brand, datalistBrands
+// updates wine_id
 function loadDropdown(arr, datalist) {
   let domlist = arr.map(x => {
     return `<option value="${x}">${x}</option>`;
   });
   domlist = domlist.join("");
   datalist.innerHTML = domlist;
+}
+
+// checks all the input values against the wine object array and sets the wine_id form value if found
+function wineIdUpdate() {
+  const wine = wines.find(wine => {
+    return (
+      brandInput.value == wine.brand &&
+      varietyInput.value == wine.variety &&
+      parseInt(yearInput.value) == parseInt(wine.year)
+    );
+  });
+  wineId.value = wine ? wine.id : "";
 }
 
 /* =================
@@ -71,7 +122,6 @@ stars.forEach(star => {
 });
 
 // Render preview image for loaded image
-
 const imgInput = document.querySelector("#image");
 const imgPreview = document.querySelector("#imgpreview");
 const imgClose = document.querySelector(".close-img");

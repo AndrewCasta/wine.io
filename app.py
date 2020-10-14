@@ -30,6 +30,7 @@ Session(app)
 
 # TODO
 # validate /add form data
+# check wine_id from front end works
 
 
 #################
