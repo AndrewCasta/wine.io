@@ -1,0 +1,21 @@
+<!-- prettier-ignore -->
+{% extends "layout.html" %}
+
+<!-- prettier-ignore -->
+{% block body %}
+<main class="text-center main-login">
+  <form class="form-signin">
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="text" class="sr-only">Username</label>
+    <input type="email" id="username" name="username" class="form-control" placeholder="Username" required autofocus />
+    <label for="password" class="sr-only">Password</label>
+    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required />
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  </form>
+</main>
+{% endblock body%}
+
+<!-- prettier-ignore -->
+{% block JS %}
+<!-- <script src="../static/js/??.js"></script> -->
+{% endblock JS %}

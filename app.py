@@ -111,6 +111,14 @@ def get_wines():
     data["wines"] = db.execute("SELECT * FROM wines")
     return data
 
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
 # review lookup (for editing)
 
 
