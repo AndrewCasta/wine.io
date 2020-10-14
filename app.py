@@ -1,8 +1,9 @@
 import os
 from cs50 import SQL
-from flask import g, Flask, flash, redirect, render_template, request, session, url_for
+from flask import g, Flask, flash, jsonify, redirect, render_template, request, session, url_for
 from flask_session import Session
 from functools import wraps
+from pprint import pprint
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
@@ -164,8 +165,7 @@ def add():
     if request.method == "GET":
         return render_template('add.html')
     if request.method == "POST":
-        # hack user 1 for testing ===========================================================<<<< TODO
-        session["user_id"] = 1
+        session["user_id"] = 1 # ===========================================================<<<< TODO
         # collect all form data
         brand = request.form.get("brand")
         variety = request.form.get("variety")
@@ -198,9 +198,14 @@ def add():
         return redirect(url_for('add'))
 
 
-# ----
-# List
-# ----
+# -------
+# reviews
+# -------
+
+@app.route("/diary")
+def diary():
+    return
+
 
 # ------
 # Detail
@@ -225,5 +230,23 @@ def get_wines():
     data["wines"] = db.execute("SELECT * FROM wines")
     return data
 
+# -----------
+# review data
+# -----------
 
+@app.route("/reviews")
+def reviews():
+    session['user_id'] = 1 # ===========================================================<<<< TODO
 
+    sort = request.args.get("sort") # column name
+    drink_again = request.args.get("drink_again")
+
+    # Can't figure out succinct way to pass OPTIONAL values to the SQL string using the CS50 SQL library so I've create multiple looks at this route depending on the args :(
+    if drink_again:
+        print(sort, drink_again)
+        data = db.execute("SELECT * FROM reviews WHERE user_id = ? AND drink_again = ? ORDER BY ?", session['user_id'], drink_again, sort)
+    else:
+        print(sort, drink_again)
+        data = db.execute("SELECT * FROM reviews WHERE user_id = ? ORDER BY ?", session['user_id'], sort)
+
+    return jsonify(data)
