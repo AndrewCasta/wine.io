@@ -243,7 +243,8 @@ def get_wines():
 @app.route("/api/reviews")
 def get_reviews():
     session['user_id'] = 1 # ===========================================================<<<< TODO
-
+    
+    # Review after FE built ===========================================================<<<< TODO
     sortby = request.args.get("sort") # column name
     orderby = request.args.get("order") #ASC/DESC
     drink_again = request.args.get("drink_again")

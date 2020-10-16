@@ -3,11 +3,17 @@
 ================ */
 
 //--------------
-// DOM variables
+// variables
 //--------------
-// sort buttons
-// drink_again filter
-// drink_again (JS variable = True or None)
+
+// Sort by: rating
+// Sort by: date
+// Filter: drink_again
+
+// variabtes to store the search logic. Defaults on load:
+const sort = "datetime";
+const order = "ASC";
+const drink_again = "None";
 
 //---------
 // on load
@@ -19,19 +25,37 @@
 // page events
 //------------
 
-// for each of the sorted view buttons
+// filter
 // check button (change drink_again)
-// sort button (id = parameter)
-// add click event passing view as parameter & checked or not
-// helper (below)
+
+// sort
+
+// Select all btns
+// Foreach, On click
+// If dataset.sort == sort
+// order = desc
+// Helper
+// Else
+// order = asc
+// sort = dataset.sort
+// Helper
 
 //-----------------
 // helper functions
 //-----------------
 
+// Helper
 // load reviews on page
-// get data from API (using relevant inputs)
+
+// Function()
+// get data from API (sort, filter, order)
+
+// Html builder:
 // update DOM (reduce array, join, innerhtml)
+
+// Review star values
+// Loop over stars
+// check each v rating, if condition add .checked
 
 /* ================
 // click review //

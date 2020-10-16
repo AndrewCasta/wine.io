@@ -22,7 +22,7 @@ const wineId = document.querySelector("#wine_id");
 
 // get the wines values from DB
 let wines;
-$.get("/wines", data => {
+$.get("/api/wines", data => {
   // array of wine objects
   wines = data.wines;
   // array of brand names
