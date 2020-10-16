@@ -202,9 +202,10 @@ def add():
 # reviews
 # -------
 
-@app.route("/diary")
-def diary():
-    return
+@app.route("/reviews")
+def reviews():
+    session["user_id"] = 1 # ===========================================================<<<< TODO
+    return render_template('reviews.html')
 
 
 # ------
@@ -219,12 +220,17 @@ def diary():
 # API routes
 #############
 
+
+@app.route('/api/')
+def api():
+    return
+
 # -----
 # Wines
 # -----
 
 # wines lookup (return wines to frontend for lookup & return to DB via add route)
-@app.route('/wines')
+@app.route('/api/wines')
 def get_wines():
     data = {}
     data["wines"] = db.execute("SELECT * FROM wines")
@@ -234,19 +240,21 @@ def get_wines():
 # review data
 # -----------
 
-@app.route("/reviews")
-def reviews():
+@app.route("/api/reviews")
+def get_reviews():
     session['user_id'] = 1 # ===========================================================<<<< TODO
 
-    sort = request.args.get("sort") # column name
+    sortby = request.args.get("sort") # column name
+    orderby = request.args.get("order") #ASC/DESC
     drink_again = request.args.get("drink_again")
 
-    # Can't figure out succinct way to pass OPTIONAL values to the SQL string using the CS50 SQL library so I've create multiple looks at this route depending on the args :(
+    # Can't figure out succinct way to pass OPTIONAL values to the SQL string using the CS50 SQL library so I've create multiple SELECTs at this route depending on the args :(
     if drink_again:
-        print(sort, drink_again)
-        data = db.execute("SELECT * FROM reviews WHERE user_id = ? AND drink_again = ? ORDER BY ?", session['user_id'], drink_again, sort)
+        data = db.execute("SELECT * FROM reviews WHERE user_id = ? AND drink_again = ? ORDER BY ?", session['user_id'], drink_again, sortby)
     else:
-        print(sort, drink_again)
-        data = db.execute("SELECT * FROM reviews WHERE user_id = ? ORDER BY ?", session['user_id'], sort)
+        data = db.execute("SELECT * FROM reviews WHERE user_id = ? ORDER BY ?", session['user_id'], sortby)
+
+    # Return
+    # Join reviews AND wines from db
 
     return jsonify(data)
