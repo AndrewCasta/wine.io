@@ -92,7 +92,8 @@ function loadReviews() {
         }
       }
       // return each review HTML article
-      return `<article class="review">
+      return `<div class="card">
+      <article class="review">
       <h4 class="brand">${review.brand}</h4>
       <div class="star-scale">
       ${starHTML}
@@ -104,13 +105,55 @@ function loadReviews() {
         review.year
       }</span></p>
       <p class="datetime">${review.datetime}</p>
-      </article>`;
+      </article>
+      <div class="review-expand chevron-down"></div>
+      </div>`;
     });
     // join articles & insert data
     reviewsHTML.innerHTML = reviewHTML.join("");
   });
 }
 
-/* ================
-// click review //
-================ */
+/* ==============
+// view review //
+============== */
+
+// reusing this var from above
+// const reviewsHTML = document.querySelector("#reviews-html");
+
+/*
+Need to revisit this approach.
+Challenge is these events need to be added after load happens
+// Add query selector at the end of load function?
+// or, target parent that exists at time of load, then add event handlers dynamically.
+  // below is a first attempt, but doesn't fire when children clicked
+  // maybe add event listener to children when clicked instead of the below messy traversal...
+*/
+
+// as DOM is generated after page is loaded, the events here are delcared from the parent
+reviewsHTML.addEventListener("click", e => {
+  let reviews = reviewsHTML.querySelectorAll(".review");
+  // if a review expand is clicked, opens up review panel
+  if (e.target.classList.contains("review")) {
+    if (e.target.classList.contains("view-review")) {
+      e.target.classList.remove("view-review");
+    } else {
+      reviews.forEach(review => {
+        review.classList.remove("view-review");
+      });
+      e.target.classList.toggle("view-review");
+    }
+  }
+  // if the chevron is lcicked
+  if (e.target.classList.contains("review-expand")) {
+    console.log(e.target);
+    if (e.target.parentElement.firstChild.nextSibling.classList.contains("view-review")) {
+      e.target.parentElement.firstChild.nextSibling.classList.remove("view-review");
+    } else {
+      reviews.forEach(review => {
+        review.classList.remove("view-review");
+      });
+      e.target.parentElement.firstChild.nextSibling.classList.toggle("view-review");
+    }
+  }
+});

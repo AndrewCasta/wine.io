@@ -132,7 +132,9 @@ Reviews
 }
 
 .reviews {
+  /* height: ; */
   height: 100vh;
+  overflow-y: auto;
 }
 
 /* Review butuon bar */
@@ -161,16 +163,35 @@ Reviews
 }
 
 /* review cards */
-.review {
+.card {
   background: var(--main-grey);
   margin: 1.25rem;
   padding: 1.25rem;
   border-radius: var(--radius);
   box-shadow: var(--shadow-light);
+}
+
+.review {
   display: grid;
   grid-template-columns: auto auto;
   grid-row: 1fr 1fr;
   align-content: stretch;
+}
+
+.review-expand {
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+}
+.chevron-down::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f078";
+}
+.chevron-up::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f077";
 }
 
 /* manipulation individual cells */
@@ -225,6 +246,17 @@ Reviews
     object-fit: cover;
     height: 100%;
   }
+}
+
+/* ===== */
+/* View review */
+.view-review {
+  height: 500px;
+}
+
+.view-review .review-img-container,
+.review-img {
+  display: block;
 }
 
 /* 
