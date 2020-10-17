@@ -72,12 +72,18 @@ Add
  */
 
 .review-container {
-  width: 90%;
-  max-width: 720px;
+  background: var(--main-white);
+  padding: 2rem;
+  /* width: 90%; */
+  max-width: 650px;
   margin: 0 auto;
 }
 
 form {
+  background: var(--main-grey);
+  padding: 1rem 2rem 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-light);
   display: grid;
 }
 
