@@ -251,6 +251,7 @@ def get_reviews():
     drink_again = request.args.get("drink_again")
 
     # CS50 SQL doesn't string variables (only numbers), so for the ASC/DESC or ORDER BY OPTIONAL values I've had to hard code SQL lookups.
+    # Can't wait to learn a fuller SQL library!
     if drink_again:
         if sortby == 'rating' and orderby == 'DESC':
             data = db.execute("SELECT * FROM reviews JOIN wines ON reviews.wine_id=wines.id WHERE user_id = ? AND drink_again = 'True' ORDER BY rating DESC", session['user_id'])
