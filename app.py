@@ -250,7 +250,7 @@ def get_reviews():
     orderby = request.args.get("order") #ASC/DESC
     drink_again = request.args.get("drink_again")
 
-    # CS50 SQL doesn't string variables (only numbers), so for the ASC/DESC or ORDER BY OPTIONAL values I've had to hard code SQL lookups.
+    # CS50 SQL doesn't support string variables as arguments (only numbers), so for the ASC/DESC or ORDER BY OPTIONAL values I've had to hard code SQL lookups.
     # Can't wait to learn a fuller SQL library!
     if drink_again:
         if sortby == 'rating' and orderby == 'DESC':
