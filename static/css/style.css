@@ -187,11 +187,14 @@ Reviews
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   content: "\f078";
+  padding: 2rem;
+  cursor: pointer;
 }
 .chevron-up::before {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   content: "\f077";
+  padding: 2rem;
 }
 
 /* manipulation individual cells */
