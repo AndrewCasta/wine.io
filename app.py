@@ -250,12 +250,29 @@ def get_reviews():
     orderby = request.args.get("order") #ASC/DESC
     drink_again = request.args.get("drink_again")
 
-    # Can't figure out succinct way to pass OPTIONAL values to the SQL string using the CS50 SQL library, as the strings include '' in the SQL query, so I've create multiple SELECTs at this route depending on the args :(
+    # CS50 SQL doesn't string variables (only numbers), so for the ASC/DESC or ORDER BY OPTIONAL values I've had to hard code SQL lookups.
     if drink_again:
-        data = db.execute("SELECT * FROM reviews JOIN wines ON reviews.wine_id=wines.id WHERE user_id = ? AND drink_again = ? ORDER BY ?", session['user_id'], drink_again, sortby)
+        if sortby == 'rating' and orderby == 'DESC':
+            data = db.execute("SELECT * FROM reviews JOIN wines ON reviews.wine_id=wines.id WHERE user_id = ? AND drink_again = 'True' ORDER BY rating DESC", session['user_id'])
+        if sortby == 'rating' and orderby == 'ASC':
+            data = db.execute("SELECT * FROM reviews JOIN wines ON reviews.wine_id=wines.id WHERE user_id = ? AND drink_again = 'True' ORDER BY rating ASC", session['user_id'])
+        if sortby == 'datetime' and orderby == 'DESC':
+            data = db.execute("SELECT * FROM reviews JOIN wines ON reviews.wine_id=wines.id WHERE user_id = ? AND drink_again = 'True' ORDER BY datetime DESC", session['user_id'])
+        if sortby == 'datetime' and orderby == 'ASC':
+            data = db.execute("SELECT * FROM reviews JOIN wines ON reviews.wine_id=wines.id WHERE user_id = ? AND drink_again = 'True' ORDER BY datetime ASC", session['user_id'])
     else:
-        data = db.execute("SELECT * FROM reviews JOIN wines ON reviews.wine_id=wines.id WHERE user_id = ? ORDER BY ?", session['user_id'], sortby)
-    # ADD orderby    ===========================================================<<<< TODO
+        if sortby == 'rating' and orderby == 'DESC':
+            data = db.execute("SELECT * FROM reviews JOIN wines ON reviews.wine_id=wines.id WHERE user_id = ? ORDER BY rating DESC", session['user_id'])
+        if sortby == 'rating' and orderby == 'ASC':
+            data = db.execute("SELECT * FROM reviews JOIN wines ON reviews.wine_id=wines.id WHERE user_id = ? ORDER BY rating ASC", session['user_id'])
+        if sortby == 'datetime' and orderby == 'DESC':
+            data = db.execute("SELECT * FROM reviews JOIN wines ON reviews.wine_id=wines.id WHERE user_id = ? ORDER BY datetime DESC", session['user_id'])
+        if sortby == 'datetime' and orderby == 'ASC':
+            data = db.execute("SELECT * FROM reviews JOIN wines ON reviews.wine_id=wines.id WHERE user_id = ? ORDER BY datetime ASC", session['user_id'])
+
+
+
+    
 
     # Return
     # Join reviews AND wines from db

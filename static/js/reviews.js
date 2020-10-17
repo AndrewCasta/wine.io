@@ -70,27 +70,11 @@ orderBtn.addEventListener("click", e => {
   loadReviews();
 });
 
-// Select all btns
-// Foreach, On click
-
-// update btn
-// remove .toggle
-// currentTarget add .toggle
-
-// update variable
-// If dataset.sort == sort
-// order = desc
-// Helper
-// Else
-// order = asc
-// sort = dataset.sort
-// Helper
-
 //-----------------
 // helper functions
 //-----------------
 
-// loads reviews on page, using the sort/filter variables, which are maninupated by the events
+// loads reviews on page, using the sort/filter variables, which are maninupated by the events above
 
 function loadReviews() {
   // get data from API (sort, filter, order)
