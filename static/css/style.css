@@ -27,10 +27,24 @@ img {
   width: 100%;
   display: block;
 }
+img[src=""] {
+  /* display: none; */
+  visibility: hidden;
+  width: 0;
+}
 
 /* base style */
 body {
   background: var(--main-bg);
+}
+
+/* icon hiding */
+.hide-none {
+  display: none;
+}
+
+.hide-hidden {
+  visibility: hidden;
 }
 
 /* star rating */
@@ -115,7 +129,8 @@ Reviews
   height: 100vh;
 }
 
-.review-btns {
+/* Review buton bar */
+.review-bar {
   background: var(--main-grey);
   padding: 1rem;
   box-shadow: var(--shadow-light);
@@ -123,6 +138,7 @@ Reviews
   justify-content: space-between;
 }
 
+/* review cards */
 .review {
   background: var(--main-grey);
   margin: 1rem;

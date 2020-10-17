@@ -31,6 +31,7 @@ Session(app)
 # TODO
 # validate /add form data
 # apply the login_require decorator to routes
+# add orderby to reviews
 
 
 #################
@@ -249,11 +250,12 @@ def get_reviews():
     orderby = request.args.get("order") #ASC/DESC
     drink_again = request.args.get("drink_again")
 
-    # Can't figure out succinct way to pass OPTIONAL values to the SQL string using the CS50 SQL library so I've create multiple SELECTs at this route depending on the args :(
+    # Can't figure out succinct way to pass OPTIONAL values to the SQL string using the CS50 SQL library, as the strings include '' in the SQL query, so I've create multiple SELECTs at this route depending on the args :(
     if drink_again:
-        data = db.execute("SELECT * FROM reviews WHERE user_id = ? AND drink_again = ? ORDER BY ?", session['user_id'], drink_again, sortby)
+        data = db.execute("SELECT * FROM reviews JOIN wines ON reviews.wine_id=wines.id WHERE user_id = ? AND drink_again = ? ORDER BY ?", session['user_id'], drink_again, sortby)
     else:
-        data = db.execute("SELECT * FROM reviews WHERE user_id = ? ORDER BY ?", session['user_id'], sortby)
+        data = db.execute("SELECT * FROM reviews JOIN wines ON reviews.wine_id=wines.id WHERE user_id = ? ORDER BY ?", session['user_id'], sortby)
+    # ADD orderby    ===========================================================<<<< TODO
 
     # Return
     # Join reviews AND wines from db

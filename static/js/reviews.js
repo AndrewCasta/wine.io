@@ -10,10 +10,15 @@
 // Sort by: date
 // Filter: drink_again
 
+// DOM elements
+const sortBtns = document.querySelectorAll(".sort-btns");
+const filterBtn = document.querySelector("#drink_again");
+const reviewsHTML = document.querySelector("#reviews-html");
+
 // variabtes to store the search logic. Defaults on load:
-const sort = "datetime";
-const order = "ASC";
-const drink_again = "None";
+const sort = "datetime"; // rating | datetime
+const order = "ASC"; // ASC | DESC
+const drinkAgain = ""; // True | ''
 
 //---------
 // on load
@@ -32,6 +37,12 @@ const drink_again = "None";
 
 // Select all btns
 // Foreach, On click
+
+// update btn
+// remove .toggle
+// currentTarget add .toggle
+
+// update variable
 // If dataset.sort == sort
 // order = desc
 // Helper
@@ -47,8 +58,33 @@ const drink_again = "None";
 // Helper
 // load reviews on page
 
-// Function()
 // get data from API (sort, filter, order)
+$.get(`/api/reviews?sort=${sort}&drink_again=${drinkAgain}&order=${order}`, reviews => {
+  // Build the HTML for each review
+  let reviewHTML = reviews.map(review => {
+    // Build star rating based on stored rating value
+    let starHTML = "";
+    for (let i = 0; i < 5; i++) {
+      if (review.rating > i) {
+        starHTML += '<span class="fa fa-star checked"></span>';
+      } else {
+        starHTML += '<span class="fa fa-star"></span>';
+      }
+    }
+    // return each review HTML article
+    return `<article class="review">
+    <h4 class="brand">${review.brand}</h4>
+    <div class="star-scale">
+    ${starHTML}
+    </div>
+    <img src="${review.image ? review.image : ""}" alt="image of review" class="review-img" />
+    <p><span class="variety">${review.variety}</span>, <span class="year">${review.year}</span></p>
+    <p class="datetime">${review.datetime}</p>
+    </article>`;
+  });
+  // join articles & insert data
+  reviewsHTML.innerHTML = reviewHTML.join("");
+});
 
 // Html builder:
 // update DOM (reduce array, join, innerhtml)

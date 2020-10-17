@@ -10,16 +10,25 @@ Reviews
 {% block body %}
 <main class="reviews-main">
   <section class="reviews">
-    <!-- buttons -->
-    <div class="review-btns">
-      <span>Date</span>
-      <span>Rating</span>
-      <span>Drink Again</span>
+    <!-- Sort/Filter bar -->
+    <div class="review-bar">
+      <!-- Sort/Order -->
+      <div class="btn-group sort-btns" aria-label="Sort btns">
+        <button type="button" class="btn btn-secondary active" data-id="sortDate">Date</button>
+        <button type="button" class="btn btn-secondary" data-id="sortRating">Rating</button>
+        <button type="button" class="btn btn-secondary" data-id="sortOrder">
+          <i class="fas fa-sort-down"></i>
+          <i class="fas fa-sort-up hide-none"></i>
+        </button>
+      </div>
+      <!-- Filter -->
+      <button type="button" class="btn btn-secondary" id="drink_again">
+        Drink again?<i class="fas fa-check hide-hidden"></i>
+      </button>
     </div>
     <!-- Review -->
-    <div class="review">
-      <!-- <article class="review-wine"></article> -->
-      <!-- <article class="review-info"></article> -->
+    <div id="reviews-html"></div>
+    <!-- <article class="review">
       <h4 class="brand">One Roads</h4>
       <div class="star-scale">
         <span class="fa fa-star checked" data-rating="1"></span>
@@ -31,7 +40,7 @@ Reviews
       <img src="static/images-upload\marrymybed.gif" alt="" class="review-img" />
       <p><span class="variety">Shiraz</span>, <span class="year">2019</span></p>
       <p class="datetime">October 16th, 2016</p>
-    </div>
+    </article> -->
   </section>
 </main>
 {% endblock body%}
