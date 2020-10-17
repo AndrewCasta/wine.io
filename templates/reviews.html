@@ -13,13 +13,10 @@ Reviews
     <!-- Sort/Filter bar -->
     <div class="review-bar">
       <!-- Sort/Order -->
-      <div class="btn-group sort-btns" aria-label="Sort btns">
-        <button type="button" class="btn btn-secondary active" data-id="sortDate">Date</button>
-        <button type="button" class="btn btn-secondary" data-id="sortRating">Rating</button>
-        <button type="button" class="btn btn-secondary" data-id="sortOrder">
-          <i class="fas fa-sort-down"></i>
-          <i class="fas fa-sort-up hide-none"></i>
-        </button>
+      <div class="btn-group" aria-label="Sort btns">
+        <button type="button" class="btn btn-secondary sort-btn active" data-sort="datetime">Date</button>
+        <button type="button" class="btn btn-secondary sort-btn" data-sort="rating">Rating</button>
+        <button type="button" class="btn btn-secondary order-btn desc"></button>
       </div>
       <!-- Filter -->
       <button type="button" class="btn btn-secondary" id="drink_again">

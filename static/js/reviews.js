@@ -11,14 +11,15 @@
 // Filter: drink_again
 
 // DOM elements
-const sortBtns = document.querySelectorAll(".sort-btns");
+const sortBtns = document.querySelectorAll(".sort-btn");
+const orderBtn = document.querySelector(".order-btn");
 const filterBtn = document.querySelector("#drink_again");
 const reviewsHTML = document.querySelector("#reviews-html");
 
 // variabtes to store the search logic. Defaults on load:
-const sort = "datetime"; // rating | datetime
-const order = "ASC"; // ASC | DESC
-const drinkAgain = ""; // True | ''
+let sort = "datetime"; // rating | datetime
+let order = "DESC"; // ASC | DESC (most recent first)
+let drinkAgain = ""; // True | ''
 
 //---------
 // on load
@@ -31,10 +32,43 @@ loadReviews();
 // page events
 //------------
 
-// filter
-// check button (change drink_again)
+// filter button
+filterBtn.addEventListener("click", e => {
+  // toggle icon display
+  e.currentTarget.querySelector("i").classList.toggle("hide-hidden");
+  // update filter variable
+  drinkAgain = drinkAgain == "True" ? "" : "True";
+  // get & load data
+  loadReviews();
+});
 
-// sort
+// sort buttons
+sortBtns.forEach(btn => {
+  btn.addEventListener("click", e => {
+    // remove active style from btns
+    sortBtns.forEach(btn => {
+      btn.classList.remove("active");
+    });
+    // add active style
+    e.currentTarget.classList.add("active");
+    // update sort variable
+    sort = e.currentTarget.dataset.sort;
+    // get & load data
+    loadReviews();
+  });
+});
+
+// order btn
+orderBtn.addEventListener("click", e => {
+  // swap between asc & desc icons
+  orderBtn.classList.toggle("asc");
+  orderBtn.classList.toggle("desc");
+  // update order variable
+  order = order == "ASC" ? "DESC" : "ASC";
+  console.log(order);
+  // get & load data
+  loadReviews();
+});
 
 // Select all btns
 // Foreach, On click
@@ -56,12 +90,12 @@ loadReviews();
 // helper functions
 //-----------------
 
-// Helper
-// load reviews on page
+// loads reviews on page, using the sort/filter variables, which are maninupated by the events
 
 function loadReviews() {
   // get data from API (sort, filter, order)
   $.get(`/api/reviews?sort=${sort}&drink_again=${drinkAgain}&order=${order}`, reviews => {
+    console.log(reviews);
     // Build the HTML for each review
     let reviewHTML = reviews.map(review => {
       // Build star rating based on stored rating value

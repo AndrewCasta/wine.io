@@ -129,13 +129,29 @@ Reviews
   height: 100vh;
 }
 
-/* Review buton bar */
+/* Review butuon bar */
 .review-bar {
   background: var(--main-grey);
   padding: 1rem;
   box-shadow: var(--shadow-light);
   display: flex;
   justify-content: space-between;
+}
+
+.fa-check {
+  padding: 0.25rem;
+  padding-left: 0.5rem;
+}
+/* up/down icons */
+.asc::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f0de";
+}
+.desc::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f0dd";
 }
 
 /* review cards */
@@ -182,7 +198,8 @@ Reviews
 
 @media screen and (min-width: 768px) {
   .review {
-    grid-template-columns: auto auto minmax(0%, 25%);
+    grid-template-columns: auto auto minmax(auto, 25%);
+    grid-template-rows: repeat(2, minmax(auto, 4rem));
     grid-template-rows: auto auto;
     column-gap: 1rem;
   }
@@ -193,6 +210,7 @@ Reviews
   }
   .review-img {
     display: block;
+    /* border-radius: var(--radius); */
     object-fit: cover;
     height: 100%;
   }
