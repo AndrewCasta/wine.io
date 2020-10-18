@@ -136,11 +136,15 @@ Reviews
   overflow-y: auto;
 }
 
-/* Review butuon bar */
-.review-bar {
+/* review header */
+.reviews-header {
   background: var(--main-grey);
   padding: 1rem;
   box-shadow: var(--shadow-light);
+}
+
+/* Review butuon bar */
+.review-bar {
   display: flex;
   justify-content: space-between;
 }

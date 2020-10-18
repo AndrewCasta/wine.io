@@ -10,19 +10,24 @@ Reviews
 {% block body %}
 <main class="reviews-main">
   <section class="reviews">
-    <!-- Sort/Filter bar -->
-    <div class="review-bar">
-      <!-- Sort/Order -->
-      <div class="btn-group" aria-label="Sort btns">
-        <button type="button" class="btn btn-secondary sort-btn active" data-sort="datetime">Date</button>
-        <button type="button" class="btn btn-secondary sort-btn" data-sort="rating">Rating</button>
-        <button type="button" class="btn btn-secondary order-btn desc"></button>
+    <!-- review header -->
+    <header class="reviews-header">
+      <h1 class="display-4">Reviews</h1>
+      <!-- Sort/Filter bar -->
+      <div class="review-bar">
+        <!-- Sort/Order -->
+        <div class="btn-group" aria-label="Sort btns">
+          <button type="button" class="btn btn-secondary sort-btn active" data-sort="datetime">Date</button>
+          <button type="button" class="btn btn-secondary sort-btn" data-sort="rating">Rating</button>
+          <button type="button" class="btn btn-secondary order-btn desc"></button>
+        </div>
+        <!-- Filter -->
+        <button type="button" class="btn btn-secondary" id="drink_again">
+          Drink again?<i class="fas fa-check hide-hidden"></i>
+        </button>
       </div>
-      <!-- Filter -->
-      <button type="button" class="btn btn-secondary" id="drink_again">
-        Drink again?<i class="fas fa-check hide-hidden"></i>
-      </button>
-    </div>
+    </header>
+
     <!-- Reviews load here -->
     <div id="reviews-html"></div>
     <!-- Review -->
