@@ -283,9 +283,9 @@ Reviews
 
 /* layout */
 .view-review {
-  min-height: 500px;
+  /* height: auto; */
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto auto 1fr auto;
+  grid-template-rows: auto auto auto auto auto;
   grid-template-areas:
     "brand stars"
     "variety date"
@@ -357,7 +357,6 @@ Reviews
   }
   .review-text {
     margin-top: 1rem;
-    height: 50px;
   }
   .review-text p {
     padding: 1rem;

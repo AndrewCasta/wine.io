@@ -99,9 +99,13 @@ function loadReviews() {
       <div class="star-scale">
       ${starHTML}
       </div>
-      <div class="review-img-container">
-        <img src="${review.image ? review.image : ""}" alt="image of review" class="review-img" />
-      </div>
+      ${
+        review.image
+          ? `<div class="review-img-container">
+        <img src="${review.image}" alt="image of review" class="review-img" />
+      </div>`
+          : `<span></span>`
+      }
       <p class="variety-year"><span class="variety">${review.variety}</span>, <span class="year">${
         review.year
       }</span></p>
