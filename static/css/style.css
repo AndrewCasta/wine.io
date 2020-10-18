@@ -184,7 +184,7 @@ Reviews
 .review {
   display: grid;
   grid-template-columns: auto auto;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: auto auto;
   align-content: stretch;
 }
 
@@ -323,8 +323,8 @@ Reviews
 
 @media screen and (min-width: 768px) {
   .review {
-    grid-template-columns: auto auto minmax(auto, 25%);
-    grid-template-rows: repeat(3, 40px);
+    grid-template-columns: 1fr 1fr minmax(auto, 25%);
+    grid-template-rows: repeat(3, auto);
     column-gap: 1rem;
   }
   .datetime {
@@ -357,6 +357,7 @@ Reviews
   }
   .review-text {
     margin-top: 1rem;
+    height: 50px;
   }
   .review-text p {
     padding: 1rem;
