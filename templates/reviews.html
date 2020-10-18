@@ -27,7 +27,7 @@ Reviews
     <div id="reviews-html"></div>
     <!-- Review -->
     <!-- <div class="card">
-      <article class="review">
+      <article class="review view-review" id="review-999">
         <h4 class="brand">One Roads</h4>
         <div class="star-scale">
           <span class="fa fa-star checked" data-rating="1"></span>
@@ -37,12 +37,25 @@ Reviews
           <span class="fa fa-star" data-rating="5"></span>
         </div>
         <div class="review-img-container">
-          <img src="static\images-upload\Test_image.jpg" alt="" class="review-img" />
+          <img src="static\images-upload\folder-img.jpg" alt="" class="review-img" />
         </div>
         <p class="variety-year"><span class="variety">Shiraz</span>, <span class="year">2019</span></p>
         <p class="datetime">October 16th, 2016</p>
+        <div class="review-text">
+          <h6>Review:</h6>
+          <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat obcaecati omnis earum quis autem pariatur,
+            hic consectetur sit quasi quam!
+          </p>
+        </div>
+        <span class="drink-again">Drink again: <i class="fas fa-check"></i></span>
+        <span id="review-edit-btn">
+          <form action="/edit">
+            <button type="submit" class="btn btn-primary" name="review_id" value="999">Edit</button>
+          </form>
+        </span>
       </article>
-      <div class="review-expand chevron-down"></div>
+      <div class="review-expand chevron-down" data-reviewId="review-999"></div>
     </div> -->
   </section>
 </main>

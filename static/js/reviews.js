@@ -101,6 +101,19 @@ function loadReviews() {
         review.year
       }</span></p>
       <p class="datetime">${review.datetime}</p>
+
+      <div class="review-text">
+          <h6>Review:</h6>
+          <p>${review.review}</p>
+        </div>
+        <span class="drink-again">Drink again: 
+        ${review.drink_again ? `<i class="fas fa-check">` : `<i class="fas fa-times"></i>`}</i></span>
+        <span id="review-edit-btn">
+          <form action="/edit">
+            <button type="submit" class="btn btn-primary" name="review_id" value="${review.id}">Edit</button>
+          </form>
+        </span>
+
       </article>
       <div class="review-expand chevron-down" data-reviewId="review-${review.id}"></div>
       </div>`;

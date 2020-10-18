@@ -79,7 +79,7 @@ Add
   margin: 0 auto;
 }
 
-form {
+.add-form {
   background: var(--main-grey);
   padding: 1rem 2rem 2rem;
   border-radius: var(--radius);
@@ -174,10 +174,37 @@ Reviews
 .review {
   display: grid;
   grid-template-columns: auto auto;
-  grid-row: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   align-content: stretch;
 }
 
+/* hidden by default */
+.review-text p {
+  background: var(--main-white);
+  border-radius: var(--radius);
+  padding: 0.25rem;
+  /* box-shadow: var(--shadow-light); */
+}
+
+.review-img {
+  object-fit: cover;
+  height: 100%;
+}
+.review-img-container {
+  box-shadow: var(--shadow-light);
+  max-width: 400px;
+  justify-self: center;
+}
+
+#review-edit-btn {
+  margin: 0.5rem 0;
+  justify-self: end;
+}
+#review-edit-btn .btn {
+  width: 8rem;
+}
+
+/* card expansion btn */
 .review-expand {
   display: block;
   text-align: center;
@@ -187,16 +214,17 @@ Reviews
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   content: "\f078";
-  padding: 2rem;
+  padding: 0.5rem 2rem;
   cursor: pointer;
 }
 .chevron-up::before {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   content: "\f077";
-  padding: 2rem;
+  padding: 0.5rem 2rem;
 }
 
+/* layout */
 /* manipulation individual cells */
 .review p {
   margin-bottom: 0;
@@ -220,10 +248,66 @@ Reviews
   font-weight: bold;
 }
 
+/* default hidden elements */
 /* image */
 .review-img,
-.review-img-container {
+.review-img-container,
+.review-text,
+.drink-again,
+#review-edit-btn {
   display: none;
+}
+
+/* ============ */
+/* View review */
+
+/* elements unhidden */
+.view-review .review-img-container,
+.view-review .review-img,
+.view-review .review-text,
+.view-review .drink-again,
+.view-review #review-edit-btn {
+  display: block;
+}
+
+/* layout */
+.view-review {
+  min-height: 500px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto 300px 1fr auto;
+  grid-template-areas:
+    "brand stars"
+    "variety date"
+    "img img"
+    "txt txt"
+    "again btn";
+}
+.view-review .brand {
+  grid-area: brand;
+}
+.view-review .star-scale {
+  grid-area: stars;
+}
+.view-review .variety-year {
+  grid-area: variety;
+}
+.view-review .datetime {
+  grid-area: date;
+}
+.view-review .review-img-container {
+  grid-area: img;
+  margin: 0.5rem 0;
+}
+.review-text {
+  grid-area: txt;
+  margin-bottom: 0.5rem;
+}
+.drink-again {
+  grid-area: again;
+  align-self: center;
+}
+#review-edit-btn {
+  grid-area: btn;
 }
 
 @media screen and (min-width: 768px) {
@@ -249,17 +333,24 @@ Reviews
     object-fit: cover;
     height: 100%;
   }
-}
-
-/* ===== */
-/* View review */
-.view-review {
-  height: 500px;
-}
-
-.view-review .review-img-container,
-.review-img {
-  display: block;
+  .view-review {
+    min-height: 500px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 50px 30px 30px auto auto auto;
+    grid-template-areas:
+      "brand img"
+      "variety img"
+      "date img"
+      "stars img"
+      "txt txt"
+      "again btn";
+  }
+  .review-text {
+    margin-top: 1rem;
+  }
+  .review-text p {
+    padding: 1rem;
+  }
 }
 
 /* 
