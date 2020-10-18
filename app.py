@@ -226,8 +226,9 @@ def edit():
         pprint(review)
         return render_template('edit.html', review=review)
     if request.method == "POST":
-        
         # delete review
+        
+
         # edit review
         review_id = request.form.get("review_id")
         brand = request.form.get("brand")

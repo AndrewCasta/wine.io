@@ -91,6 +91,7 @@ Add / Edit
   padding: 0.5rem;
   justify-self: end;
   font-size: 2rem;
+  color: darkred;
 }
 
 /* Image updload */
@@ -284,7 +285,7 @@ Reviews
 .view-review {
   min-height: 500px;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto 300px 1fr auto;
+  grid-template-rows: auto auto auto 1fr auto;
   grid-template-areas:
     "brand stars"
     "variety date"
@@ -344,7 +345,6 @@ Reviews
     height: 100%;
   }
   .view-review {
-    min-height: 500px;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 50px 30px 30px auto auto 50px;
     grid-template-areas:

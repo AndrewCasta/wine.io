@@ -136,7 +136,10 @@ function starUpdate() {
   });
 }
 
-// Render preview image for loaded image
+//------------------------
+// Preview image for form
+//------------------------
+
 const imgInput = document.querySelector("#image");
 const imgInputHidden = document.querySelector("#hiddenimage");
 const imgPreview = document.querySelector("#imgpreview");
@@ -166,3 +169,7 @@ imgClose.addEventListener("click", () => {
   imgInputHidden.value = "";
   imgClose.classList.add("hidden");
 });
+
+//------------------------
+// Preview image for form
+//------------------------

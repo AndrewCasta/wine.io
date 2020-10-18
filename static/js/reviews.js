@@ -87,9 +87,14 @@ function loadReviews() {
           starHTML += '<span class="fa fa-star"></span>';
         }
       }
+      // if review has no image, add the no-img class
+      let reviewClass = "review";
+      if (!review.image) {
+        reviewClass = "review no-img";
+      }
       // return each review HTML article
       return `<div class="card">
-      <article class="review" id="review-${review.review_id}">
+      <article class="${reviewClass}" id="review-${review.review_id}">
       <h4 class="brand">${review.brand}</h4>
       <div class="star-scale">
       ${starHTML}
