@@ -225,6 +225,7 @@ Reviews
   font-weight: 900;
   content: "\f077";
   padding: 0.5rem 2rem;
+  cursor: pointer;
 }
 
 /* layout */

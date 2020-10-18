@@ -157,6 +157,8 @@ def index():
 # ----
 
 # add new review
+
+# set allowed file names
 def allowed_file(filename):
     return '.' in filename and \
             filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -208,14 +210,26 @@ def reviews():
     session["user_id"] = 1 # ===========================================================<<<< TODO
     return render_template('reviews.html')
 
-
-# ------
-# Detail
-# ------
-
 # ----
 # Edit
 # ----
+
+@app.route('/edit', methods=["GET", "POST"])
+def edit():
+    session["user_id"] = 1 # ===========================================================<<<< TODO
+    if request.method == "GET":
+        review_id = request.args.get('review_id')
+        # search for review_id in DB with user_id
+        review = db.execute("SELECT * FROM reviews JOIN wines ON reviews.wine_id=wines.id WHERE user_id = ? AND reviews.review_id = ?", session['user_id'], int(review_id))
+        # if none, error you don't have permission to edit that review ===============<<<< TODO
+        # if success, return edit page with review loaded
+        return render_template('edit.html', review=review)
+    if request.method == "POST":
+        # delete review
+        # edit review
+        return
+
+
 
 #############
 # API routes
@@ -249,6 +263,7 @@ def get_reviews():
     sortby = request.args.get("sort") # column name
     orderby = request.args.get("order") #ASC/DESC
     drink_again = request.args.get("drink_again")
+    data = None
 
     # CS50 SQL doesn't support string variables as arguments (only numbers), so for the ASC/DESC or ORDER BY OPTIONAL values I've had to hard code SQL lookups.
     # Can't wait to learn a fuller SQL library!
@@ -270,12 +285,5 @@ def get_reviews():
             data = db.execute("SELECT * FROM reviews JOIN wines ON reviews.wine_id=wines.id WHERE user_id = ? ORDER BY datetime DESC", session['user_id'])
         if sortby == 'datetime' and orderby == 'ASC':
             data = db.execute("SELECT * FROM reviews JOIN wines ON reviews.wine_id=wines.id WHERE user_id = ? ORDER BY datetime ASC", session['user_id'])
-
-
-
-    
-
-    # Return
-    # Join reviews AND wines from db
-
+    pprint(data)
     return jsonify(data)

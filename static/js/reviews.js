@@ -89,7 +89,7 @@ function loadReviews() {
       }
       // return each review HTML article
       return `<div class="card">
-      <article class="review" id="review-${review.id}">
+      <article class="review" id="review-${review.review_id}">
       <h4 class="brand">${review.brand}</h4>
       <div class="star-scale">
       ${starHTML}
@@ -110,12 +110,12 @@ function loadReviews() {
         ${review.drink_again ? `<i class="fas fa-check">` : `<i class="fas fa-times"></i>`}</i></span>
         <span id="review-edit-btn">
           <form action="/edit">
-            <button type="submit" class="btn btn-primary" name="review_id" value="${review.id}">Edit</button>
+            <button type="submit" class="btn btn-primary" name="review_id" value="${review.review_id}">Edit</button>
           </form>
         </span>
 
       </article>
-      <div class="review-expand chevron-down" data-reviewId="review-${review.id}"></div>
+      <div class="review-expand chevron-down" data-reviewId="review-${review.review_id}"></div>
       </div>`;
     });
     // join articles & insert data
