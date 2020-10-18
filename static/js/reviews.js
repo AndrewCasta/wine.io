@@ -104,7 +104,7 @@ function loadReviews() {
           ? `<div class="review-img-container">
         <img src="${review.image}" alt="image of review" class="review-img" />
       </div>`
-          : `<span></span>`
+          : `<span class="review-img"></span>`
       }
       <p class="variety-year"><span class="variety">${review.variety}</span>, <span class="year">${
         review.year
