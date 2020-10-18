@@ -227,7 +227,7 @@ def edit():
         return render_template('edit.html', review=review)
     if request.method == "POST":
         # delete review
-        
+
 
         # edit review
         review_id = request.form.get("review_id")
@@ -263,6 +263,17 @@ def edit():
         # route to review page ================================================<<<< TODO
         return render_template('add.html')
 
+# ------
+# Delete
+# ------
+@app.route("/delete")
+def delete():
+    session["user_id"] = 1 # ===========================================================<<<< TODO
+    review_id = request.args.get('review_id')
+
+    db.execute("DELETE FROM reviews WHERE review_id = ? and user_id = ?", review_id, session["user_id"])
+
+    return redirect(url_for('reviews'))
 
 
 #############
@@ -319,5 +330,5 @@ def get_reviews():
             data = db.execute("SELECT * FROM reviews JOIN wines ON reviews.wine_id=wines.id WHERE user_id = ? ORDER BY datetime DESC", session['user_id'])
         if sortby == 'datetime' and orderby == 'ASC':
             data = db.execute("SELECT * FROM reviews JOIN wines ON reviews.wine_id=wines.id WHERE user_id = ? ORDER BY datetime ASC", session['user_id'])
-    pprint(data)
+    # pprint(data)
     return jsonify(data)
