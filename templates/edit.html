@@ -11,7 +11,7 @@ edit
   <section class="review-container">
     <h1 class="display-4">Edit</h1>
     <!-- Form -->
-    <form class="add-form" action="/add" method="POST" enctype="multipart/form-data">
+    <form class="add-form" action="/edit" method="POST" enctype="multipart/form-data">
       <!-- review_id -->
       <input type="hidden" id="review_id" name="review_id" value="{{ review[0]['review_id'] }}" />
       <!-- exit button -->
@@ -76,7 +76,11 @@ edit
       <!-- close image -->
       <span class="close-img hidden"><i class="fas fa-times"></i></span>
       <!-- in form image -->
-      <img src="{{ review[0]['image'] }}" alt="" id="imgpreview" />
+      <img
+        src="{% if review[0]['image'] != None %}{{ review[0]['image'] }}{% else %}{% endif %}"
+        alt=""
+        id="imgpreview"
+      />
       <!-- image form -->
       <div class="form-group img-upload">
         <!-- img icon for input -->
@@ -84,7 +88,13 @@ edit
           ><label for="image"><i class="far fa-image"></i></label
         ></span>
         <!-- hidden input -->
-        <input type="file" id="image" accept="image/*" name="file" value="{{ review[0]['image'] }}" />
+        <input type="file" id="image" accept="image/*" name="file" />
+        <input
+          type="hidden"
+          id="hiddenimage"
+          name="image"
+          value="{% if review[0]['image'] != None %}{{ review[0]['image'] }}{% else %}{% endif %}"
+        />
       </div>
       <!-- review -->
       <div class="form-group">

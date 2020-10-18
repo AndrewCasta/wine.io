@@ -226,9 +226,41 @@ def edit():
         pprint(review)
         return render_template('edit.html', review=review)
     if request.method == "POST":
+        
         # delete review
         # edit review
-        return
+        review_id = request.form.get("review_id")
+        brand = request.form.get("brand")
+        variety = request.form.get("variety")
+        year = request.form.get("year")
+        rating = request.form.get("rating")
+        review = request.form.get("review")
+        drink_again = request.form.get("drink_again")
+        wine_id = request.form.get("wine_id")
+
+        # update image
+
+        # if an image was on the form when loaded for editing, value here
+        # if an image was not provided, or removed from the interface, this will be None
+        image = request.form.get("image")
+
+        # if image file provided, this will override the previous image 
+        # store in server folder & set image as location in db         
+        file = request.files['file']
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            image = (os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            file.save(image)
+
+        # if wine does exist, first create new row for wine, return wine_id
+        if not wine_id:
+            wine_id = db.execute("INSERT INTO wines (brand, variety, year) VALUES (?, ?, ?)", brand, variety, year)
+        
+        # then update DB row
+        db.execute("UPDATE reviews SET wine_id = ?, rating = ?, review = ?, drink_again = ?, image = ? WHERE review_id = ? AND user_id = ?", wine_id, rating, review, drink_again, image, review_id, session["user_id"])
+
+        # route to review page ================================================<<<< TODO
+        return render_template('add.html')
 
 
 

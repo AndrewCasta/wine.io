@@ -100,9 +100,18 @@ function wineIdUpdate() {
 // Form interface //
 ==================*/
 
+//--------------------------
 // star rating click & input
+//--------------------------
+
 const stars = document.querySelectorAll(".star-scale span");
 const rating = document.querySelector("#rating");
+
+// On load
+// data loads with page, via FLASK template, to rating input value
+starUpdate();
+
+// Update event
 
 stars.forEach(star => {
   star.addEventListener("click", e => {
@@ -111,27 +120,34 @@ stars.forEach(star => {
     // update the hidden form input
     rating.value = ratingInput;
     // update the star UI
-    stars.forEach(star => {
-      if (star.dataset.rating <= ratingInput) {
-        star.classList.add("checked");
-      } else {
-        star.classList.remove("checked");
-      }
-    });
+    starUpdate();
   });
 });
 
+// helper
+
+function starUpdate() {
+  stars.forEach(star => {
+    if (star.dataset.rating <= rating.value) {
+      star.classList.add("checked");
+    } else {
+      star.classList.remove("checked");
+    }
+  });
+}
+
 // Render preview image for loaded image
 const imgInput = document.querySelector("#image");
+const imgInputHidden = document.querySelector("#hiddenimage");
 const imgPreview = document.querySelector("#imgpreview");
 const imgClose = document.querySelector(".close-img");
 
-// (for edit page) show the remove img btn if an image is loaded
-if (imgPreview.getAttribute("src") != "None") {
+// (for edit page) show the remove img btn if an image is available
+if (imgPreview.getAttribute("src")) {
   imgClose.classList.remove("hidden");
 }
 
-// runs when img is changed
+// update preview when img is changed
 imgInput.addEventListener("change", previewImg);
 
 function previewImg() {
@@ -147,5 +163,6 @@ function previewImg() {
 imgClose.addEventListener("click", () => {
   imgPreview.src = "";
   imgInput.value = "";
+  imgInputHidden.value = "";
   imgClose.classList.add("hidden");
 });
