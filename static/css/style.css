@@ -132,8 +132,7 @@ Reviews
 }
 
 .reviews {
-  /* height: ; */
-  height: 100vh;
+  height: calc(100vh - 56px);
   overflow-y: auto;
 }
 
@@ -336,7 +335,7 @@ Reviews
   .view-review {
     min-height: 500px;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 50px 30px 30px auto auto auto;
+    grid-template-rows: 50px 30px 30px auto auto 50px;
     grid-template-areas:
       "brand img"
       "variety img"
