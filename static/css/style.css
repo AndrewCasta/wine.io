@@ -67,7 +67,7 @@ body {
 
 /* 
 =============
-Add
+Add / Edit
 =============
  */
 
@@ -116,6 +116,12 @@ Add
 /* star rating */
 #rating {
   display: none;
+}
+
+/* edit page */
+.edit-delete-btns {
+  display: flex;
+  justify-content: space-between;
 }
 
 /* 

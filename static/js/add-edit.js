@@ -77,8 +77,8 @@ yearInput.addEventListener("keyup", () => {
 // load data into dropdown list. args = arr, dom datalist. e.g. brand, datalistBrands
 // updates wine_id
 function loadDropdown(arr, datalist) {
-  let domlist = arr.map(x => {
-    return `<option value="${x}">${x}</option>`;
+  let domlist = arr.map(item => {
+    return `<option value="${item}">${item}</option>`;
   });
   domlist = domlist.join("");
   datalist.innerHTML = domlist;
@@ -126,16 +126,22 @@ const imgInput = document.querySelector("#image");
 const imgPreview = document.querySelector("#imgpreview");
 const imgClose = document.querySelector(".close-img");
 
-imgInput.addEventListener("change", () => {
+// (for edit page) show the remove img btn if an image is loaded
+if (imgPreview.getAttribute("src") != "None") {
+  imgClose.classList.remove("hidden");
+}
+
+// runs when img is changed
+imgInput.addEventListener("change", previewImg);
+
+function previewImg() {
   // read image and update imgPreview src
   const reader = new FileReader();
   reader.readAsDataURL(imgInput.files[0]);
   reader.onload = () => (imgPreview.src = reader.result);
   // add imageClose icon
   imgClose.classList.remove("hidden");
-  // if (imgPreview.src != "") {
-  // }
-});
+}
 
 // remove image preview, input value & hide close icon
 imgClose.addEventListener("click", () => {

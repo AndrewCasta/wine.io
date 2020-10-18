@@ -223,6 +223,7 @@ def edit():
         review = db.execute("SELECT * FROM reviews JOIN wines ON reviews.wine_id=wines.id WHERE user_id = ? AND reviews.review_id = ?", session['user_id'], int(review_id))
         # if none, error you don't have permission to edit that review ===============<<<< TODO
         # if success, return edit page with review loaded
+        pprint(review)
         return render_template('edit.html', review=review)
     if request.method == "POST":
         # delete review
