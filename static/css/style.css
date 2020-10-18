@@ -358,6 +358,9 @@ Reviews
       "txt txt"
       "again btn";
   }
+  .view-review .review-img-container {
+    height: 300px;
+  }
   .review-text {
     margin-top: 1rem;
   }
