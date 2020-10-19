@@ -84,6 +84,7 @@ def register():
             # insert new user into db (store username & password hash)        
             user_id = db.execute('INSERT INTO users (username, hash) VALUES (?, ?)', username, generate_password_hash(password))
             # log user in
+            print(user_id)
             session["user_id"] = user_id
             # redirect to index
             return redirect(url_for('index'))
@@ -112,14 +113,14 @@ def login():
         # validate inputs
         # username & password inputted
         if not username or not password:
-            error = 'please enter username & password'
+            error = 'Please enter username & password'
 
         # search DB for user_id
         user = db.execute("SELECT id, username, hash FROM users WHERE username = ?", username)
         # check username returns ONE results (if none, username doesn't exist)
         # check password HASH is same as db hash
         if len(user) != 1 or not check_password_hash(user[0]['hash'], password):
-            error = 'username or password incorrect'
+            error = 'Username or password incorrect'
         # store user_id as session["user_id"] & redirect
         else:
             session["user_id"] = user[0]['id']
@@ -138,7 +139,7 @@ def logout():
     # Forget any user_id
     session.clear()
     # redirect to login
-    return url_for('index')
+    return render_template('login.html', error='Successfully logged out')
 
 #################
 # Frontend routes
@@ -202,6 +203,8 @@ def allowed_file(filename):
 def add():
     if request.method == "GET":
         return render_template('add.html')
+
+    # add wine to the DB
     if request.method == "POST":
         session["user_id"] = 1 # ===========================================================<<<< TODO
         # collect all form data
@@ -212,9 +215,6 @@ def add():
         review = request.form.get("review")
         drink_again = request.form.get("drink_again")
         wine_id = request.form.get("wine_id")
-        # needs to implement autocomplete, then check for wine_id if a match was found 
-
-        # validate all form data ===========================================================<<<< TODO
         
         # image
         # if image file provided, store in server folder & set image as location in db
@@ -233,7 +233,7 @@ def add():
         # insert review into DB
         db.execute("INSERT INTO reviews (user_id, wine_id, rating, image, review, drink_again) VALUES (?, ?, ?, ?, ?, ?)", session["user_id"], wine_id, rating, image, review, drink_again)
 
-        return redirect(url_for('add'))
+        return redirect(url_for('reviews'))
 
 
 # -------
@@ -257,7 +257,8 @@ def edit():
         review_id = request.args.get('review_id')
         # search for review_id in DB with user_id
         review = db.execute("SELECT * FROM reviews JOIN wines ON reviews.wine_id=wines.id WHERE user_id = ? AND reviews.review_id = ?", session['user_id'], int(review_id))
-        # if none, error you don't have permission to edit that review ===============<<<< TODO
+        
+        # if none, error you don't have permission to edit that review
         if (len(review) == 0):
             error = 'Review not found for this user'
             return render_template('error.html', error=error)
@@ -265,11 +266,11 @@ def edit():
         # if success, return edit page with review loaded
         pprint(review)
         return render_template('edit.html', review=review)
+
+    # edit review end point
     if request.method == "POST":
-        # delete review
 
-
-        # edit review
+        # get form details
         review_id = request.form.get("review_id")
         brand = request.form.get("brand")
         variety = request.form.get("variety")
@@ -279,13 +280,13 @@ def edit():
         drink_again = request.form.get("drink_again")
         wine_id = request.form.get("wine_id")
 
-        # update image
+        # image
 
-        # if an image was on the form when loaded for editing, value here
+        # if an image was on the form when loaded for editing and not changed, original value assigned here
         # if an image was not provided, or removed from the interface, this will be None
         image = request.form.get("image")
 
-        # if image file provided, this will override the previous image 
+        # if new image file provided, this will override the previous image 
         # store in server folder & set image as location in db         
         file = request.files['file']
         if file and allowed_file(file.filename):
@@ -300,15 +301,17 @@ def edit():
         # then update DB row
         db.execute("UPDATE reviews SET wine_id = ?, rating = ?, review = ?, drink_again = ?, image = ? WHERE review_id = ? AND user_id = ?", wine_id, rating, review, drink_again, image, review_id, session["user_id"])
 
-        # route to review page ================================================<<<< TODO
-        return render_template('add.html')
+        # go back to review page
+        return render_template('reviews.html')
 
 # ------
 # Delete
 # ------
 @app.route("/delete")
 def delete():
-    session["user_id"] = 1 # ===========================================================<<<< TODO
+    session["user_id"] = 1 # ===========================================================<<<< 
+    error = None
+    # get review to be deleted
     review_id = request.args.get('review_id')
 
     db.execute("DELETE FROM reviews WHERE review_id = ? and user_id = ?", review_id, session["user_id"])

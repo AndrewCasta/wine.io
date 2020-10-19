@@ -26,6 +26,7 @@ Add
           placeholder="Brand"
           name="brand"
           autocomplete="off"
+          maxlength="36"
         />
         <datalist id="datalist-brands"> </datalist>
       </div>
@@ -39,6 +40,7 @@ Add
           placeholder="Variety"
           name="variety"
           autocomplete="off"
+          maxlength="36"
         />
         <datalist id="datalist-varieties"> </datalist>
       </div>
@@ -52,6 +54,8 @@ Add
           placeholder="Year"
           name="year"
           autocomplete="off"
+          min="0"
+          max="9999"
         />
         <datalist id="datalist-years"> </datalist>
       </div>
@@ -61,7 +65,7 @@ Add
       <div class="form-group">
         <input type="number" id="rating" name="rating" />
         <!-- star style -->
-        <div class="star-scale">
+        <div class="star-scale add-edit-stars">
           <span class="fa fa-star" data-rating="1"></span>
           <span class="fa fa-star" data-rating="2"></span>
           <span class="fa fa-star" data-rating="3"></span>
@@ -87,7 +91,7 @@ Add
       <!-- review -->
       <div class="form-group">
         <label for="review">Review:</label>
-        <textarea class="form-control" id="review" rows="3" name="review"></textarea>
+        <textarea class="form-control" id="review" rows="3" name="review" maxlength="280"></textarea>
       </div>
       <!-- datetime -->
       <!-- drink again -->

@@ -29,6 +29,7 @@ Edit
           name="brand"
           autocomplete="off"
           value="{{ review[0]['brand'] }}"
+          maxlength="36"
         />
         <datalist id="datalist-brands"> </datalist>
       </div>
@@ -43,6 +44,7 @@ Edit
           name="variety"
           autocomplete="off"
           value="{{ review[0]['variety'] }}"
+          maxlength="36"
         />
         <datalist id="datalist-varieties"> </datalist>
       </div>
@@ -57,6 +59,8 @@ Edit
           name="year"
           autocomplete="off"
           value="{{ review[0]['year'] }}"
+          min="0"
+          max="9999"
         />
         <datalist id="datalist-years"> </datalist>
       </div>
@@ -66,7 +70,7 @@ Edit
       <div class="form-group">
         <input type="number" id="rating" data-id="edit" name="rating" value="{{ review[0]['rating'] }}" />
         <!-- star style -->
-        <div class="star-scale">
+        <div class="star-scale add-edit-stars">
           <span class="fa fa-star" data-rating="1"></span>
           <span class="fa fa-star" data-rating="2"></span>
           <span class="fa fa-star" data-rating="3"></span>
@@ -101,7 +105,7 @@ Edit
       <!-- review -->
       <div class="form-group">
         <label for="review">Review:</label>
-        <textarea class="form-control" id="review" rows="3" name="review">
+        <textarea class="form-control" id="review" rows="3" name="review" maxlength="280">
 {{ review[0]['review'] }}
         </textarea>
       </div>
