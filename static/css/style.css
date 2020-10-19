@@ -467,8 +467,6 @@ Log-in
   background-color: #f5f5f5;
 }
 .error-message {
-  background-color: var(--main-white);
-  border-radius: var(--radius);
   padding: 0.5rem 0;
   margin-top: 0.5rem;
 }

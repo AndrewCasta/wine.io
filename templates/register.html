@@ -55,7 +55,7 @@ Register
     <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
     <!-- error message -->
     {% if error %}
-    <p class="error-message">{{ error }}</p>
+    <div class="alert alert-danger error-message" role="alert">{{ error }}</div>
     {% endif %}
   </form>
 </main>

@@ -41,7 +41,7 @@ Login
 
     <!-- error message -->
     {% if error %}
-    <p class="error-message">{{ error }}</p>
+    <div class="alert alert-danger error-message" role="alert">{{ error }}</div>
     {% endif %}
     <p>Need an account? <a href="/register">Register here</a></p>
   </form>

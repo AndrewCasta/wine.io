@@ -28,12 +28,6 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-# TODO
-# validate /add form data
-# apply the login_require decorator to routes
-# add orderby to reviews
-
-
 #################
 # Authentication
 #################
@@ -84,7 +78,6 @@ def register():
             # insert new user into db (store username & password hash)        
             user_id = db.execute('INSERT INTO users (username, hash) VALUES (?, ?)', username, generate_password_hash(password))
             # log user in
-            print(user_id)
             session["user_id"] = user_id
             # redirect to index
             return redirect(url_for('index'))
@@ -149,10 +142,9 @@ def logout():
 # Index (home)
 # ----
 @app.route("/")
+@login_required
 def index():
-    session["user_id"] = 1 # ===========================================================<<<< TODO
 
-    # data to return
     # total reviews
     # SELECT count(*) from reviews WHERE user_id = 1
     totalReviews = db.execute('SELECT count(*) from reviews WHERE user_id = ?', session["user_id"])
@@ -178,13 +170,6 @@ def index():
         mostReviewedWine = mostReviewedWine[0]
     else:
         mostReviewedWine = None
-    # if none
-    print('==')
-    pprint(totalReviews)
-    pprint(drinkAgainCount)
-    pprint(mostReviewedWine)
-    pprint(recentTopRating)
-
 
     return render_template('index.html', user_id=session["user_id"], totalReviews=totalReviews, drinkAgainCount=drinkAgainCount, recentTopRating=recentTopRating, mostReviewedWine=mostReviewedWine)
 
@@ -200,13 +185,13 @@ def allowed_file(filename):
             filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/add', methods=["GET", "POST"])
+@login_required
 def add():
     if request.method == "GET":
         return render_template('add.html')
 
     # add wine to the DB
     if request.method == "POST":
-        session["user_id"] = 1 # ===========================================================<<<< TODO
         # collect all form data
         brand = request.form.get("brand")
         variety = request.form.get("variety")
@@ -241,8 +226,8 @@ def add():
 # -------
 
 @app.route("/reviews")
+@login_required
 def reviews():
-    session["user_id"] = 1 # ===========================================================<<<< TODO
     return render_template('reviews.html')
 
 # ----
@@ -250,8 +235,8 @@ def reviews():
 # ----
 
 @app.route('/edit', methods=["GET", "POST"])
+@login_required
 def edit():
-    session["user_id"] = 1 # ===========================================================<<<< TODO
     if request.method == "GET":
         error = None
         review_id = request.args.get('review_id')
@@ -264,7 +249,6 @@ def edit():
             return render_template('error.html', error=error)
 
         # if success, return edit page with review loaded
-        pprint(review)
         return render_template('edit.html', review=review)
 
     # edit review end point
@@ -308,9 +292,8 @@ def edit():
 # Delete
 # ------
 @app.route("/delete")
+@login_required
 def delete():
-    session["user_id"] = 1 # ===========================================================<<<< 
-    error = None
     # get review to be deleted
     review_id = request.args.get('review_id')
 
@@ -326,7 +309,7 @@ def delete():
 
 @app.route('/api/')
 def api():
-    return
+    return render_template('api.html')
 
 # -----
 # Wines
@@ -344,10 +327,8 @@ def get_wines():
 # -----------
 
 @app.route("/api/reviews")
+@login_required
 def get_reviews():
-    session['user_id'] = 1 # ===========================================================<<<< TODO
-    
-    # Review after FE built ===========================================================<<<< TODO
     sortby = request.args.get("sort") # column name
     orderby = request.args.get("order") #ASC/DESC
     drink_again = request.args.get("drink_again")
@@ -373,5 +354,5 @@ def get_reviews():
             data = db.execute("SELECT * FROM reviews JOIN wines ON reviews.wine_id=wines.id WHERE user_id = ? ORDER BY datetime DESC", session['user_id'])
         if sortby == 'datetime' and orderby == 'ASC':
             data = db.execute("SELECT * FROM reviews JOIN wines ON reviews.wine_id=wines.id WHERE user_id = ? ORDER BY datetime ASC", session['user_id'])
-    # pprint(data)
+
     return jsonify(data)
