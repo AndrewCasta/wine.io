@@ -1,0 +1,19 @@
+<!-- prettier-ignore -->
+{% extends "layout.html" %}
+
+<!-- prettier-ignore -->
+{% block body %}
+
+<div class="jumbotron">
+  <h1 class="display-4">Error!</h1>
+  <p class="lead">{{ error }}</p>
+  <hr class="my-4" />
+  <a class="btn btn-primary btn-lg" href="/" role="button">Return home</a>
+</div>
+
+{% endblock body%}
+
+<!-- prettier-ignore -->
+{% block JS %}
+<script src="../static/js/reviews.js"></script>
+{% endblock JS %}

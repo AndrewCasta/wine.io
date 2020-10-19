@@ -117,10 +117,15 @@ stars.forEach(star => {
   star.addEventListener("click", e => {
     // get the rating value of the star clicked
     const ratingInput = e.currentTarget.dataset.rating;
-    // update the hidden form input
-    rating.value = ratingInput;
-    // update the star UI
-    starUpdate();
+    if (ratingInput == 1 && rating.value == 1) {
+      rating.value = 0;
+      starUpdate();
+    } else {
+      // update the hidden form input
+      rating.value = ratingInput;
+      // update the star UI
+      starUpdate();
+    }
   });
 });
 
@@ -169,7 +174,3 @@ imgClose.addEventListener("click", () => {
   imgInputHidden.value = "";
   imgClose.classList.add("hidden");
 });
-
-//------------------------
-// Preview image for form
-//------------------------

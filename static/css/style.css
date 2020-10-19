@@ -66,6 +66,80 @@ body {
 }
 
 /* 
+=======
+Navbar
+=======
+ */
+
+/* Nav is coming from bootsrap */
+
+/* 
+=======
+Home
+=======
+ */
+
+.home {
+  background: var(--main-white);
+  width: 95%;
+  max-width: 768px;
+  margin: 0 auto;
+}
+.home .display-4 {
+  margin-left: 1.25rem;
+}
+.total-section {
+  padding: 1.25rem;
+  padding-bottom: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 1rem;
+  justify-items: space-between;
+}
+.total-card {
+  text-align: center;
+  padding: 1rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-light);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  background: var(--main-grey);
+}
+
+.top-wines h3 {
+  padding: 1.25rem 1.25rem 0;
+  margin-bottom: 0;
+}
+.review-most {
+  display: flex;
+  justify-content: space-between;
+}
+.review-count {
+  text-align: center;
+  padding-right: 2rem;
+}
+.home a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* for review & card CSS, see below reviews section */
+
+.btn-footer {
+  margin: 1.25rem 0;
+  padding: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.empty-review {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 
 =============
 Add / Edit
 =============
@@ -183,9 +257,8 @@ Reviews
 
 .review {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: repeat(2, minmax(auto, 1fr));
   grid-template-rows: auto auto;
-  align-content: stretch;
 }
 
 /* hidden by default */
@@ -193,7 +266,6 @@ Reviews
   background: var(--main-white);
   border-radius: var(--radius);
   padding: 0.25rem;
-  /* box-shadow: var(--shadow-light); */
 }
 
 .review-img {
@@ -247,7 +319,7 @@ Reviews
 }
 
 .star-scale {
-  min-width: 108px;
+  /* min-width: 108px; */
   justify-self: end;
 }
 
@@ -285,7 +357,7 @@ Reviews
 /* layout */
 .view-review {
   /* height: auto; */
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(50px, 1fr));
   grid-template-rows: auto auto auto auto auto;
   grid-template-areas:
     "brand stars"
@@ -324,7 +396,7 @@ Reviews
 
 @media screen and (min-width: 768px) {
   .review {
-    grid-template-columns: 1fr 1fr minmax(auto, 25%);
+    grid-template-columns: repeat(3, minmax(auto, 1fr));
     grid-template-rows: repeat(3, auto);
     column-gap: 1rem;
   }
@@ -333,13 +405,13 @@ Reviews
     justify-self: start;
   }
   .star-scale {
-    justify-self: start;
+    justify-self: center;
   }
   .review-img-container {
     display: block;
+    height: 130px;
     grid-column: 3;
     grid-row: 1 / 4;
-    height: 130px;
   }
   .review-img {
     display: block;
@@ -348,8 +420,8 @@ Reviews
     min-height: 100%;
   }
   .view-review {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 50px 30px 30px auto auto 50px;
+    grid-template-columns: repeat(2, minmax(auto, 1fr));
+    grid-template-rows: repeat(6, auto);
     grid-template-areas:
       "brand img"
       "variety img"
@@ -360,6 +432,12 @@ Reviews
   }
   .view-review .review-img-container {
     height: 300px;
+  }
+  .view-review .variety-year {
+    align-self: start;
+  }
+  .view-review .star-scale {
+    justify-self: start;
   }
   .review-text {
     margin-top: 1rem;
@@ -400,10 +478,11 @@ Log-in
   padding: 10px;
   font-size: 16px;
 }
-/* .form-signin .form-control:focus {
+
+.form-signin .form-control:focus {
   z-index: 2;
 }
-.form-signin input[type="email"] {
+.form-signin input[type="text"] {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
@@ -412,4 +491,14 @@ Log-in
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-} */
+}
+#password {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+#password-check {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}

@@ -8,10 +8,106 @@ home
 
 <!-- prettier-ignore -->
 {% block body %}
+<main class="home">
+  <header>
+    <h1 class="display-4">Home</h1>
+  </header>
+  <section class="total-section">
+    <!-- total reviews -->
+    <a href="/reviews">
+      <article class="total-card">
+        <h4>Review Count</h4>
+        <h1>{{ totalReviews }}</h1>
+      </article>
+    </a>
+    <a href="/reviews">
+      <!-- drink again count -->
+      <article class="total-card">
+        <h4>Drink Again Count</h4>
+        <h1>{{ drinkAgainCount }}</h1>
+      </article>
+    </a>
+  </section>
+
+  <section class="top-wines">
+    <!-- Most logged wine -->
+
+    <h3 class="card-title">Most reviewed wine</h3>
+    {% if mostReviewedWine == None %}
+    <div class="card">
+      <article class="empty-review">
+        <span>No wines logged? Add your first here</span>
+        <a href="/add"><button type="button" class="btn btn-primary">Add</button></a>
+      </article>
+    </div>
+    {% else %}
+    <a href="/reviews">
+      <!-- {{ mostReviewedWine }} -->
+      <div class="card">
+        <article class="review-most">
+          <div class="wine-info">
+            <h4 class="brand">{{ mostReviewedWine['brand'] }}</h4>
+            <p class="variety-year">
+              <span class="variety">{{ mostReviewedWine['variety'] }}</span>,
+              <span class="year">{{ mostReviewedWine['year'] }}</span>
+            </p>
+          </div>
+          <span class="review-count"
+            ><strong>Reviews:</strong>
+            <h1>{{ mostReviewedWine['COUNT(wine_id)'] }}</h1></span
+          >
+        </article>
+      </div>
+    </a>
+
+    {% endif %}
+
+    <!-- Recent 5 star rating -->
+    <h3 class="card-title">Recent 5 star review</h3>
+
+    {% if recentTopRating == None %}
+    <div class="card">
+      <article class="empty-review">
+        <span>No 5 star reviews? Get out there are start reviewin'!</span>
+        <a href="/add"><button type="button" class="btn btn-primary">Add</button></a>
+      </article>
+    </div>
+    {% else %}
+
+    <!-- {{ recentTopRating }} -->
+    <a href="/reviews">
+      <div class="card">
+        <article class="review">
+          <h4 class="brand">{{ recentTopRating['brand'] }}</h4>
+          <input type="hidden" id="rating" value="{{ recentTopRating['rating'] }}" />
+          <div class="star-scale">
+            <span class="fa fa-star" data-rating="1"></span><span class="fa fa-star" data-rating="2"></span
+            ><span class="fa fa-star" data-rating="3"></span><span class="fa fa-star" data-rating="4"></span
+            ><span class="fa fa-star" data-rating="5"></span>
+          </div>
+          <div class="review-img-container">
+            <img src="static\images-upload\folder-img.jpg" alt="" class="review-img" />
+          </div>
+          <p class="variety-year">
+            <span class="variety">{{ recentTopRating['variety'] }}</span>,
+            <span class="year">{{ recentTopRating['year'] }}</span>
+          </p>
+          <p class="datetime">{{ recentTopRating['datetime'] }}</p>
+        </article>
+      </div>
+    </a>
+
+    {% endif %}
+    <div class="btn-footer">
+      <a href="/reviews"><button type="button" class="btn btn-secondary">See all reviews</button></a>
+      <a href="/add"><button type="button" class="btn btn-primary">Add review</button></a>
+    </div>
+  </section>
+</main>
 <p>Good to go, user: {{ user_id }}</p>
 {% endblock body%}
 
 <!-- prettier-ignore -->
 {% block JS %}
-<script src="../static/js/??.js"></script>
+<script src="../static/js/home.js"></script>
 {% endblock JS %}

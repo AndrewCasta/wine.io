@@ -148,9 +148,44 @@ def logout():
 # Index (home)
 # ----
 @app.route("/")
-@login_required
 def index():
-    return render_template('index.html', user_id=session["user_id"])
+    session["user_id"] = 1 # ===========================================================<<<< TODO
+
+    # data to return
+    # total reviews
+    # SELECT count(*) from reviews WHERE user_id = 1
+    totalReviews = db.execute('SELECT count(*) from reviews WHERE user_id = ?', session["user_id"])
+    totalReviews = totalReviews[0]['count(*)']
+    # drink again count
+    # SELECT count(*) from reviews WHERE user_id = 1 AND drink_again = 'True'
+    drinkAgainCount = db.execute("SELECT count(*) from reviews WHERE user_id = ? AND drink_again = 'True'", session["user_id"])
+    drinkAgainCount = drinkAgainCount[0]['count(*)']
+
+    # Recent 5 star rating
+    # SELECT *, wines.* from reviews JOIN wines ON wine_id=wines.id WHERE user_id = 1 AND rating = 5 ORDER BY datetime DESC LIMIT 1
+    recentTopRating = db.execute('SELECT *, wines.* from reviews JOIN wines ON wine_id=wines.id WHERE user_id = ? AND rating = 5 ORDER BY datetime DESC LIMIT 1', session["user_id"])
+    if (len(recentTopRating) > 0):
+        recentTopRating = recentTopRating[0]
+    else:
+        recentTopRating = None
+    # if none
+
+    # most logged wine
+    # SELECT wine_id, wines.brand, wines.variety, wines.year, COUNT(*) from reviews JOIN wines ON wine_id=wines.id WHERE user_id = 1 GROUP BY wine_id ORDER BY COUNT(*) DESC LIMIT 1
+    mostReviewedWine = db.execute('SELECT wine_id, image, wines.brand, wines.variety, wines.year, COUNT(wine_id) from reviews JOIN wines ON wine_id=wines.id WHERE user_id = ? GROUP BY wine_id ORDER BY COUNT(*) DESC LIMIT 1', session["user_id"])
+    if (len(mostReviewedWine) > 0):
+        mostReviewedWine = mostReviewedWine[0]
+    else:
+        mostReviewedWine = None
+    # if none
+    print('==')
+    pprint(totalReviews)
+    pprint(drinkAgainCount)
+    pprint(mostReviewedWine)
+    pprint(recentTopRating)
+
+
+    return render_template('index.html', user_id=session["user_id"], totalReviews=totalReviews, drinkAgainCount=drinkAgainCount, recentTopRating=recentTopRating, mostReviewedWine=mostReviewedWine)
 
 # ----
 # Add
@@ -218,10 +253,15 @@ def reviews():
 def edit():
     session["user_id"] = 1 # ===========================================================<<<< TODO
     if request.method == "GET":
+        error = None
         review_id = request.args.get('review_id')
         # search for review_id in DB with user_id
         review = db.execute("SELECT * FROM reviews JOIN wines ON reviews.wine_id=wines.id WHERE user_id = ? AND reviews.review_id = ?", session['user_id'], int(review_id))
         # if none, error you don't have permission to edit that review ===============<<<< TODO
+        if (len(review) == 0):
+            error = 'Review not found for this user'
+            return render_template('error.html', error=error)
+
         # if success, return edit page with review loaded
         pprint(review)
         return render_template('edit.html', review=review)
