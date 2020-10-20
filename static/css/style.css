@@ -462,7 +462,7 @@ Log-in
 
 .main-login,
 .main-register {
-  height: 100vh;
+  height: calc(100vh - 56px);
   display: flex;
   align-items: center;
   padding-top: 40px;

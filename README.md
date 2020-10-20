@@ -10,7 +10,8 @@ Initial design: https://www.figma.com/file/egP37kjleuM8chMPDmQ2Bz/figma-test?nod
 
 Current project: https://trello.com/b/8E4GEEEp/wineio
 
-Deployed preview: TODO
+Deployed preview: https://wine-io.herokuapp.com/
+NOTE: This is using a free account and a file db, so loading is a bit slow and images/reviews/users are all cleared between deploys.
 
 ## Features:
 

@@ -102,7 +102,7 @@ function loadReviews() {
       ${
         review.image
           ? `<div class="review-img-container">
-        <img src="${review.image}" alt="image of review" class="review-img" />
+        <img src="${review.image}" alt="Sorry! Images are deleted from server storage after some time. You can always use the edit feature to add a new one." class="review-img" />
       </div>`
           : `<span class="review-img"></span>`
       }
