@@ -2,7 +2,10 @@ env/
 
 .vscode/
 
+<<<<<<< HEAD
 # flask_session/
+=======
+>>>>>>> f82c6ec5a493ddeafcd4667e188017cded9e1229
 flask_session/*
 !flask_session/.gitkeep
 
