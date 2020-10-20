@@ -20,9 +20,9 @@ build/
 dbtest.py
 
 
+
 # filestore
-
-# wineio.db
-
 bac/
 static/images-upload/*
+!static/images-upload/.gitkeep
+
