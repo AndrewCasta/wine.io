@@ -3,6 +3,8 @@ env/
 .vscode/
 
 # flask_session/
+flask_session/*
+!flask_session/.gitkeep
 
 *.pyc
 __pycache__/
@@ -20,6 +22,9 @@ build/
 dbtest.py
 
 
+
 # filestore
-images-upload/
-# wineio.db
+bac/
+static/images-upload/*
+!static/images-upload/.gitkeep
+
