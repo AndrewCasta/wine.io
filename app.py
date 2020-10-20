@@ -12,7 +12,8 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 
 # set DB. Using SQL library from CS50.
-db = SQL("sqlite:///wineio.db")
+db = SQL("postgres://klccievpmotblw:42a637bdf087e60fba02754e849097b24dffe7c60755d5ed50e9743ac11394b5@ec2-34-237-247-76.compute-1.amazonaws.com:5432/d4rcemioid3fgg
+")
 
 # File upload config
 # https://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
