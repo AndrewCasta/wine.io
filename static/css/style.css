@@ -115,6 +115,9 @@ Home
   display: flex;
   justify-content: space-between;
 }
+.wine-info {
+  overflow-wrap: anywhere !important;
+}
 .review-count {
   text-align: center;
   padding-right: 2rem;
@@ -261,7 +264,7 @@ Reviews
 
 .review {
   display: grid;
-  grid-template-columns: repeat(2, minmax(auto, 1fr));
+  grid-template-columns: repeat(2, minmax(50px, 1fr));
   grid-template-rows: auto auto;
 }
 
@@ -400,7 +403,7 @@ Reviews
 
 @media screen and (min-width: 768px) {
   .review {
-    grid-template-columns: repeat(3, minmax(auto, 1fr));
+    grid-template-columns: repeat(3, minmax(50px, 1fr));
     grid-template-rows: repeat(3, auto);
     column-gap: 1rem;
   }
@@ -424,7 +427,7 @@ Reviews
     min-height: 100%;
   }
   .view-review {
-    grid-template-columns: repeat(2, minmax(auto, 1fr));
+    grid-template-columns: repeat(2, minmax(50px, 1fr));
     grid-template-rows: repeat(6, auto);
     grid-template-areas:
       "brand img"

@@ -1,5 +1,6 @@
 import os
 from cs50 import SQL
+from datetime import datetime
 from flask import g, Flask, flash, jsonify, redirect, render_template, request, session, url_for
 from flask_session import Session
 from functools import wraps
@@ -161,7 +162,6 @@ def index():
         recentTopRating = recentTopRating[0]
     else:
         recentTopRating = None
-    # if none
 
     # most logged wine
     # SELECT wine_id, wines.brand, wines.variety, wines.year, COUNT(*) from reviews JOIN wines ON wine_id=wines.id WHERE user_id = 1 GROUP BY wine_id ORDER BY COUNT(*) DESC LIMIT 1

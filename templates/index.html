@@ -86,13 +86,13 @@ Home
             ><span class="fa fa-star" data-rating="5"></span>
           </div>
           <div class="review-img-container">
-            <img src="static\images-upload\folder-img.jpg" alt="" class="review-img" />
+            <img src="{{ recentTopRating['image'] }}" alt="" class="review-img" />
           </div>
           <p class="variety-year">
             <span class="variety">{{ recentTopRating['variety'] }}</span>,
             <span class="year">{{ recentTopRating['year'] }}</span>
           </p>
-          <p class="datetime">{{ recentTopRating['datetime'] }}</p>
+          <p class="datetime">{{ recentTopRating['date'] }}</p>
         </article>
       </div>
     </a>

@@ -109,7 +109,7 @@ function loadReviews() {
       <p class="variety-year"><span class="variety">${review.variety}</span>, <span class="year">${
         review.year
       }</span></p>
-      <p class="datetime">${review.datetime}</p>
+      <p class="datetime">${review.date}</p>
 
       <div class="review-text">
           <h6>Review:</h6>
