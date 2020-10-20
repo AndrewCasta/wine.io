@@ -2,7 +2,7 @@ env/
 
 .vscode/
 
-flask_session/
+# flask_session/
 
 *.pyc
 __pycache__/
