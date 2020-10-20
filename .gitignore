@@ -3,6 +3,7 @@ env/
 .vscode/
 
 flask_session/*
+!flask_session/.gitkeep
 
 *.pyc
 __pycache__/
